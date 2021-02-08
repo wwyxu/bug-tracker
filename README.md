@@ -8,4 +8,4 @@ Technologies Used:
 Backend:  
 Node.js, MongoDB, Express, Bcrypt, Body-parser, JSON Web tokens, Passport, Validator  
 Frontend:  
-React, Redux, Axios, Chart.hs, Moment, Bootstrap  
+React, Redux, Axios, Chart.js, Moment, Bootstrap  
