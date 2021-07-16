@@ -2,51 +2,43 @@ import jwt_decode from "jwt-decode";
 import React, { Component } from "react";
 import { Provider } from "react-redux";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { logoutUser, setCurrentUser } from "./actions/authActions";
-import { clearCurrentProfile } from "./actions/profileActions";
-import "./App.css";
-import NotFound from "./components/common/NotFound";
-import PrivateRoute from "./components/common/PrivateRoute";
-import Dashboard from "./components/layout/Dashboard";
-import Landing from "./components/layout/Landing";
-import Navbar from "./components/layout/Navbar";
-import CreateProfile from "./components/profile-management/CreateProfile";
-import EditProfile from "./components/profile-management/EditProfile";
-import LoginToContinue from "./components/profile-management/LoginToContinue";
-import Settings from "./components/profile-management/Settings";
-import Profile from "./components/profile/Profile";
-import Profiles from "./components/profiles/Profiles";
-import Requests from "./components/project-requests/Requests";
-import EditProject from "./components/project/EditProject";
-import EditUser from "./components/project/EditUser";
-import InviteUsers from "./components/project/InviteUsers";
-import PendingUsers from "./components/project/PendingUsers";
-import Project from "./components/project/Project";
-import Projects from "./components/projects/Projects";
-import EditTicket from "./components/ticket/EditTicket";
-import Ticket from "./components/ticket/Ticket";
-import AssignedTickets from "./components/tickets/AssignedTickets";
-import Tickets from "./components/tickets/Tickets";
+import { logoutUser, setCurrentUser } from "./services/api/auth";
+import { clearCurrentProfile } from "./services/api/profile";
 import store from "./store";
+import "./styles.css";
 import setAuthToken from "./utils/setAuthToken";
+import LoginToContinue from "./views/common/login-to-continue";
+import NotFound from "./views/common/not-found";
+import PrivateRoute from "./views/common/private-route";
+import Dashboard from "./views/dashboard/index";
+import Landing from "./views/landing";
+import Navbar from "./views/navbar";
+import Profile from "./views/profile";
+import CreateProfile from "./views/profile-management/create-profile";
+import EditProfile from "./views/profile-management/edit-profile";
+import Settings from "./views/profile-management/settings";
+import Profiles from "./views/profiles";
+import Requests from "./views/project-requests";
+import EditProject from "./views/project/edit-project";
+import EditUser from "./views/project/edit-user";
+import InviteUsers from "./views/project/invite-users";
+import PendingUsers from "./views/project/pending-users";
+import Project from "./views/project/project";
+import Projects from "./views/projects";
+import EditTicket from "./views/ticket/edit";
+import Ticket from "./views/ticket/ticket";
+import Tickets from "./views/tickets";
+import AssignedTickets from "./views/tickets-assigned";
 
-// Check for token
 if (localStorage.jwtToken) {
-  // Set auth token header auth
   setAuthToken(localStorage.jwtToken);
-  // Decode token and get user info and exp
   const decoded = jwt_decode(localStorage.jwtToken);
-  // Set user and isAuthenticated
   store.dispatch(setCurrentUser(decoded));
 
-  // Check for expired token
   const currentTime = Date.now() / 1000;
   if (decoded.exp < currentTime) {
-    // Clear current Profile
     store.dispatch(clearCurrentProfile());
-    // Logout user
     store.dispatch(logoutUser());
-    // Redirect to home
     window.location.reload();
     window.location.href = "/";
   }
