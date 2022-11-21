@@ -5,6 +5,6 @@
 3. Visit http://localhost:3000/ to view the app
  
 Backend:  
-Node.js, MongoDB, Express, Bcrypt, Body-parser, JSON Web tokens, Passport, Validator  
+Node.js, MongoDB, Express, Bcrypt, JWT
 Frontend:  
-React, Redux, Axios, Chart.js, Moment, Bootstrap  
+React, Redux
